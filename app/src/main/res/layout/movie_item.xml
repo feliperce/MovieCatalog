@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/card_margin_right"
+    app:cardBackgroundColor="@color/colorPrimary"
+    app:cardCornerRadius="8dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/movieImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/movieNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/content_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieImageView"
+        app:layout_constraintHorizontal_bias="0"
+        tools:text="Movie Name" />
+
+    <TextView
+        android:id="@+id/movieRateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/content_margin"
+        android:layout_marginTop="3dp"
+        android:textColor="@color/rate_text_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movieNameTextView"
+        app:layout_constraintHorizontal_bias="0"
+        android:textSize="13sp"
+        tools:text="5.0" />
+
+        <ImageView
+            android:id="@+id/starRateImageView"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_star_grey"
+            app:layout_constraintTop_toTopOf="@+id/movieRateTextView"
+            app:layout_constraintLeft_toRightOf="@+id/movieRateTextView"
+            app:layout_constraintBottom_toBottomOf="@+id/movieRateTextView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias=".1"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
