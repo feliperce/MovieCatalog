@@ -1,4 +1,4 @@
-package br.com.mobileti.moviecatalog.home.model;
+package br.com.mobileti.moviecatalog.home.content.model;
 
 import com.google.gson.annotations.SerializedName;
 

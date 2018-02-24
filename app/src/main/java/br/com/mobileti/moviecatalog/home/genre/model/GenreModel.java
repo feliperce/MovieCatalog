@@ -1,10 +1,8 @@
-package br.com.mobileti.moviecatalog.home.model;
+package br.com.mobileti.moviecatalog.home.genre.model;
 
-import java.util.List;
-
-import br.com.mobileti.moviecatalog.ApiBuilder;
-import br.com.mobileti.moviecatalog.home.HomeMvp;
-import br.com.mobileti.moviecatalog.home.api.ApiService;
+import br.com.mobileti.moviecatalog.api.ApiBuilder;
+import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
+import br.com.mobileti.moviecatalog.api.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,12 +12,12 @@ import retrofit2.Retrofit;
  * Created by felipe on 24/02/18.
  */
 
-public class GenreModel implements HomeMvp.Model {
+public class GenreModel implements GenreMvp.Model {
 
-    private HomeMvp.Callback callback;
+    private GenreMvp.Callback callback;
     private Retrofit retrofit;
 
-    public GenreModel(HomeMvp.Callback callback) {
+    public GenreModel(GenreMvp.Callback callback) {
         this.callback = callback;
     }
 

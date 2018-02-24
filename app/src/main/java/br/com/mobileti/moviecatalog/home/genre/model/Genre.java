@@ -1,4 +1,4 @@
-package br.com.mobileti.moviecatalog.home.model;
+package br.com.mobileti.moviecatalog.home.genre.model;
 
 /**
  * Created by felipe on 24/02/18.

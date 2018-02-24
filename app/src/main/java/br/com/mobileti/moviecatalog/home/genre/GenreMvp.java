@@ -1,15 +1,15 @@
-package br.com.mobileti.moviecatalog.home;
+package br.com.mobileti.moviecatalog.home.genre;
 
 import java.util.List;
 
 import br.com.mobileti.moviecatalog.BaseView;
-import br.com.mobileti.moviecatalog.home.model.Genre;
+import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 
 /**
  * Created by felipe on 24/02/18.
  */
 
-public interface HomeMvp {
+public interface GenreMvp {
 
     interface Model {
         void getAllGenres();

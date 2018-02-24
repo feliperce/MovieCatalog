@@ -1,21 +1,21 @@
-package br.com.mobileti.moviecatalog.home.presenter;
+package br.com.mobileti.moviecatalog.home.genre.presenter;
 
 import java.util.List;
 
-import br.com.mobileti.moviecatalog.home.HomeMvp;
-import br.com.mobileti.moviecatalog.home.model.GenreModel;
-import br.com.mobileti.moviecatalog.home.model.Genre;
+import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
+import br.com.mobileti.moviecatalog.home.genre.model.GenreModel;
+import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 
 /**
  * Created by felipe on 24/02/18.
  */
 
-public class HomePresenter implements HomeMvp.Presenter, HomeMvp.Callback {
+public class HomePresenter implements GenreMvp.Presenter, GenreMvp.Callback {
 
-    private HomeMvp.Model model;
-    private HomeMvp.View view;
+    private GenreMvp.Model model;
+    private GenreMvp.View view;
 
-    public HomePresenter(HomeMvp.View view) {
+    public HomePresenter(GenreMvp.View view) {
         this.view = view;
         this.model = new GenreModel(this);
     }

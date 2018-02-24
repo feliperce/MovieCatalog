@@ -1,8 +1,6 @@
 package br.com.mobileti.moviecatalog;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,14 +17,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.mobileti.moviecatalog.home.HomeMvp;
-import br.com.mobileti.moviecatalog.home.model.Genre;
-import br.com.mobileti.moviecatalog.home.presenter.HomePresenter;
+import br.com.mobileti.moviecatalog.home.content.ContentMvp;
+import br.com.mobileti.moviecatalog.home.content.model.Movie;
+import br.com.mobileti.moviecatalog.home.content.presenter.ContentPresenter;
+import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
+import br.com.mobileti.moviecatalog.home.genre.model.Genre;
+import br.com.mobileti.moviecatalog.home.genre.presenter.HomePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeMvp.View {
+        implements NavigationView.OnNavigationItemSelectedListener, ContentMvp.View {
 
     @BindView(R.id.contentLayout)
     LinearLayout contentLayout;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView topRecyclerView;
     @BindView(R.id.latestRecyclerView)
     RecyclerView latestRecyclerView;
-    private HomeMvp.Presenter presenter;
+    private ContentMvp.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        presenter = new HomePresenter(this);
-        presenter.getAllGenres();
+        presenter = new ContentPresenter(this);
+        presenter.getPlayingMovies();
     }
 
     @Override
@@ -131,12 +132,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void setGenres(List<Genre> genreList) {
-        for(int i = 0; i < genreList.size(); i++) {
-            TextView genreTextView = (TextView) getLayoutInflater().inflate(R.layout.genre_text_view, null);
-            genreTextView.setText(genreList.get(i).getName());
+    public void setPlayingMovies(List<Movie> playingMovieList) {
 
-            contentLayout.addView(genreTextView);
-        }
+    }
+
+    @Override
+    public void setPopularMovies(List<Movie> popularMovieList) {
+
+    }
+
+    @Override
+    public void setTopMovies(List<Movie> topMovieList) {
+
     }
 }

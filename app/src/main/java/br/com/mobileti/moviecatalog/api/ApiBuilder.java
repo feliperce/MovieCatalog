@@ -1,6 +1,8 @@
-package br.com.mobileti.moviecatalog;
+package br.com.mobileti.moviecatalog.api;
 
-import br.com.mobileti.moviecatalog.home.api.ApiService;
+import br.com.mobileti.moviecatalog.BuildConfig;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -29,9 +31,13 @@ public class ApiBuilder {
     }
 
     private void build() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(new OkHttpClient.Builder().addInterceptor(interceptor).build())
                 .build();
 
         apiService = retrofit.create(ApiService.class);
