@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,11 +34,71 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Playing Movies -->
+            <TextView
+                android:id="@+id/playingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acabaram de chegar!"
+                style="@style/HomeContentTitle" />
+
+            <TextView
+                android:id="@+id/playingSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lançamentos do cinema"
+                style="@style/HomeContentSubTitle" />
+
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/moviesRecyclerView"
+                android:id="@+id/playingRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/movie_item" />
+                tools:listitem="@layout/movie_item"
+                style="@style/HomeMoviesRecyclerView" />
+
+            <!-- Top Movies -->
+            <TextView
+                android:id="@+id/topTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top filmes"
+                style="@style/HomeContentTitle" />
+
+            <TextView
+                android:id="@+id/topSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Os mais populares"
+                style="@style/HomeContentSubTitle" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/topRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/movie_item"
+                style="@style/HomeMoviesRecyclerView" />
+
+            <!-- Latest Movies -->
+            <TextView
+                android:id="@+id/latestTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Novos"
+                style="@style/HomeContentTitle" />
+
+            <TextView
+                android:id="@+id/latestSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Os mais recentes"
+                style="@style/HomeContentSubTitle" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/latestRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/movie_item"
+                style="@style/HomeMoviesRecyclerView" />
 
         </LinearLayout>
 
