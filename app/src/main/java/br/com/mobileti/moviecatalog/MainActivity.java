@@ -13,16 +13,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.List;
+
+import br.com.mobileti.moviecatalog.home.HomeMvp;
+import br.com.mobileti.moviecatalog.home.model.Genre;
+import br.com.mobileti.moviecatalog.home.presenter.HomePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeMvp.View {
 
     @BindView(R.id.contentLayout)
     LinearLayout contentLayout;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    private HomeMvp.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +52,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        for(int i = 0; i < 5; i++) {
-            TextView genreTextView = (TextView) getLayoutInflater().inflate(R.layout.genre_text_view, null);
-            genreTextView.setText("sdfsdfs");
-
-            contentLayout.addView(genreTextView);
-        }
+        presenter = new HomePresenter(this);
+        presenter.getAllGenres();
     }
 
     @Override
@@ -106,5 +111,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void startProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void finishProgressBar() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setGenres(List<Genre> genreList) {
+        for(int i = 0; i < genreList.size(); i++) {
+            TextView genreTextView = (TextView) getLayoutInflater().inflate(R.layout.genre_text_view, null);
+            genreTextView.setText(genreList.get(i).getName());
+
+            contentLayout.addView(genreTextView);
+        }
     }
 }
