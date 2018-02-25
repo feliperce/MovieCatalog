@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import br.com.mobileti.moviecatalog.R;
+import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,11 +27,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private List<Movie> movieList;
     private Context context;
     private int itemLayout;
+    private ContentMvp.Presenter presenter;
 
-    public MovieAdapter(List<Movie> movieList, Context context) {
+    public MovieAdapter(List<Movie> movieList, Context context, ContentMvp.Presenter presenter) {
         this.movieList = movieList;
         this.context = context;
         itemLayout = R.layout.movie_item;
+        this.presenter = presenter;
     }
 
     public MovieAdapter(List<Movie> movieList, Context context, int itemLayout) {
@@ -66,7 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         return movieList != null ? movieList.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.movieImageView) ImageView movieImageView;
         @BindView(R.id.movieNameTextView) TextView movieNameTextView;
@@ -75,6 +78,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            presenter.openMovieDetail(movieList.get(getAdapterPosition()).getId());
         }
     }
 }

@@ -30,6 +30,7 @@ public interface ContentMvp {
         void closeDrawer();
         boolean isMovieEmpty();
         void initViews();
+        void openMovieDetail(int movieId);
     }
 
     interface Presenter {
@@ -39,6 +40,7 @@ public interface ContentMvp {
         void getRatedMovies();
         void getTopMovies();
         void closeDrawer();
+        void openMovieDetail(int movieId);
     }
 
     interface Callback {

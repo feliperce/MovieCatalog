@@ -1,5 +1,7 @@
 package br.com.mobileti.moviecatalog.api;
 
+import br.com.mobileti.moviecatalog.detail.model.MovieDetail;
+import br.com.mobileti.moviecatalog.detail.model.MovieDetailResponse;
 import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import br.com.mobileti.moviecatalog.home.content.model.MovieResponse;
 import retrofit2.Call;
@@ -26,5 +28,8 @@ public interface ApiService {
 
     @GET("movie/popular?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&page=1")
     Call<MovieResponse> getTopMovieList();
+
+    @GET("movie/{movieId}?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US")
+    Call<MovieDetail> getMovieDetail(@Path("movieId") int movieId);
 
 }

@@ -1,5 +1,6 @@
 package br.com.mobileti.moviecatalog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.Group;
 import android.support.design.widget.Snackbar;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.mobileti.moviecatalog.detail.model.MovieDetail;
+import br.com.mobileti.moviecatalog.detail.view.DetailActivity;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
 import br.com.mobileti.moviecatalog.home.content.presenter.ContentPresenter;
@@ -31,6 +34,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseAtivity implements ContentMvp.View {
+
+    public static String MOVIE_ID_EXTRA = "movieId";
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.emptyMovieTextView) TextView emptyMovieTextView;
@@ -167,9 +172,9 @@ public class MainActivity extends BaseAtivity implements ContentMvp.View {
         );
 
         genreAdapter = new GenreAdapter(genreList, this, presenter);
-        playingMovieAdapter = new MovieAdapter(playingMovieList, this);
-        ratedMovieAdapter = new MovieAdapter(ratedMovieList, this);
-        topMovieAdapter = new MovieAdapter(topMovieList, this);
+        playingMovieAdapter = new MovieAdapter(playingMovieList, this, presenter);
+        ratedMovieAdapter = new MovieAdapter(ratedMovieList, this, presenter);
+        topMovieAdapter = new MovieAdapter(topMovieList, this, presenter);
         movieByGenreAdapter = new MovieAdapter(movieByGenreList,
                 this, R.layout.movie_by_genre_item);
 
@@ -213,6 +218,13 @@ public class MainActivity extends BaseAtivity implements ContentMvp.View {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+    }
+
+    @Override
+    public void openMovieDetail(int movieId) {
+        Intent it = new Intent(this, DetailActivity.class);
+        it.putExtra(MOVIE_ID_EXTRA, movieId);
+        startActivity(it);
     }
 
 }

@@ -47,6 +47,11 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     }
 
     @Override
+    public void openMovieDetail(int movieId) {
+        view.openMovieDetail(movieId);
+    }
+
+    @Override
     public void setMoviesByGenre(int genreId) {
         model.getMovieByGenre(genreId);
     }
