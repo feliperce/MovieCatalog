@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie Catalog</string>
 
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
     <string name="empty_movie">No movies found</string>
     <string name="cine_movie_title">"They just arrived! "</string>
     <string name="cine_movie_subtitle">"Movie Releases "</string>

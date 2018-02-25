@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:colorBackground">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
