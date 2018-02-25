@@ -12,7 +12,7 @@ import br.com.mobileti.moviecatalog.utils.Network;
  * Created by felipe on 25/02/18.
  */
 
-public class BaseAtivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     protected boolean isConnected;
 
@@ -24,7 +24,7 @@ public class BaseAtivity extends AppCompatActivity {
     }
 
     private void checkConnection() {
-        if(isConnected) {
+        if(!isConnected) {
             Snackbar.make(getWindow().getDecorView().getRootView(),
                     "Sem conexão com a internet!",
                     Snackbar.LENGTH_SHORT).show();

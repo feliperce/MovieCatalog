@@ -1,6 +1,5 @@
 package br.com.mobileti.moviecatalog.detail.view;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +15,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
-import br.com.mobileti.moviecatalog.BaseAtivity;
+import br.com.mobileti.moviecatalog.BaseActivity;
 import br.com.mobileti.moviecatalog.MainActivity;
 import br.com.mobileti.moviecatalog.R;
 import br.com.mobileti.moviecatalog.detail.MovieDetailMvp;
@@ -25,7 +24,7 @@ import br.com.mobileti.moviecatalog.detail.presenter.MovieDetailPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends BaseAtivity implements MovieDetailMvp.View {
+public class DetailActivity extends BaseActivity implements MovieDetailMvp.View {
 
     @BindView(R.id.imageProgressBar) ProgressBar imageProgressBar;
     @BindView(R.id.movieProgressBar) ProgressBar movieProgressBar;
