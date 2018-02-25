@@ -1,11 +1,11 @@
 package br.com.mobileti.moviecatalog;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +30,10 @@ import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ContentMvp.View {
+public class MainActivity extends BaseAtivity implements ContentMvp.View {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.emptyMovieTextView) TextView emptyMovieTextView;
     @BindView(R.id.playingGroup) Group playingGroup;
     @BindView(R.id.topGroup) Group topGroup;
     @BindView(R.id.ratedGroup) Group ratedGroup;
@@ -44,34 +44,26 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
     @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
     @BindView(R.id.ratedRecyclerView) RecyclerView ratedRecyclerView;
+    @BindView(R.id.moviesByGenreRecyclerView) RecyclerView moviesByGenreRecyclerView;
     private int progress;
     private ContentMvp.Presenter presenter;
     private GenreAdapter genreAdapter;
     private MovieAdapter playingMovieAdapter;
     private MovieAdapter topMovieAdapter;
     private MovieAdapter ratedMovieAdapter;
+    private MovieAdapter movieByGenreAdapter;
     private List<Genre> genreList;
     private List<Movie> playingMovieList;
     private List<Movie> topMovieList;
     private List<Movie> ratedMovieList;
+    private List<Movie> movieByGenreList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(this);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        initViews();
 
         presenter = new ContentPresenter(this);
         
@@ -86,58 +78,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
@@ -152,6 +97,9 @@ public class MainActivity extends AppCompatActivity
         if(progress == 4) {
             progressBar.setVisibility(View.GONE);
             progress = 0;
+            if(isMovieEmpty()) {
+                emptyMovieTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -160,6 +108,11 @@ public class MainActivity extends AppCompatActivity
         playingGroup.setVisibility(View.GONE);
         topGroup.setVisibility(View.GONE);
         ratedGroup.setVisibility(View.GONE);
+        moviesByGenreRecyclerView.setVisibility(View.VISIBLE);
+        this.movieByGenreList.clear();
+        this.movieByGenreList.addAll(movieList);
+        movieByGenreAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -199,6 +152,7 @@ public class MainActivity extends AppCompatActivity
         playingMovieList = new ArrayList<>();
         ratedMovieList = new ArrayList<>();
         topMovieList = new ArrayList<>();
+        movieByGenreList = new ArrayList<>();
 
         LinearLayoutManager genreLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false);
@@ -208,11 +162,16 @@ public class MainActivity extends AppCompatActivity
                 LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager topLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
+        StaggeredGridLayoutManager moviesByGenreLayoutManager = new StaggeredGridLayoutManager(
+                2, StaggeredGridLayoutManager.VERTICAL
+        );
 
         genreAdapter = new GenreAdapter(genreList, this, presenter);
         playingMovieAdapter = new MovieAdapter(playingMovieList, this);
         ratedMovieAdapter = new MovieAdapter(ratedMovieList, this);
         topMovieAdapter = new MovieAdapter(topMovieList, this);
+        movieByGenreAdapter = new MovieAdapter(movieByGenreList,
+                this, R.layout.movie_by_genre_item);
 
         genreRecyclerView.setLayoutManager(genreLayoutManager);
         genreRecyclerView.setAdapter(genreAdapter);
@@ -226,11 +185,34 @@ public class MainActivity extends AppCompatActivity
         topRecyclerView.setLayoutManager(topLayoutManager);
         topRecyclerView.setAdapter(topMovieAdapter);
 
+        moviesByGenreRecyclerView.setLayoutManager(moviesByGenreLayoutManager);
+        moviesByGenreRecyclerView.setAdapter(movieByGenreAdapter);
+
     }
 
     @Override
     public void closeDrawer() {
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public boolean isMovieEmpty() {
+        return playingGroup.getVisibility() == View.GONE &&
+                ratedGroup.getVisibility() == View.GONE &&
+                topGroup.getVisibility() == View.GONE;
+    }
+
+    @Override
+    public void initViews() {
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
     }
 
 }

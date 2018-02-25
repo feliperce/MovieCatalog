@@ -28,6 +28,8 @@ public interface ContentMvp {
         void setTopMovies(List<Movie> topMovieList);
         void setAdapters();
         void closeDrawer();
+        boolean isMovieEmpty();
+        void initViews();
     }
 
     interface Presenter {
