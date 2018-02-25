@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movie Catalog</string>
+    <string name="empty_movie">Nenhum filme encontrado</string>
+    <string name="cine_movie_title">Acabaram de chegar!</string>
+    <string name="cine_movie_subtitle">Lançamentos do cinema</string>
+    <string name="top_movie_title">Top filmes</string>
+    <string name="top_movie_subtitle">Os mais populares</string>
+    <string name="rated_movie_title">Bem avaliados</string>
+    <string name="rated_movie_subtitle">Os mais votados</string>
+</resources>
