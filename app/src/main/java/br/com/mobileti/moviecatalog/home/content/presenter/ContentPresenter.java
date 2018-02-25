@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.ContentModel;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
+import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 
 /**
  * Created by felipe on 24/02/18.
@@ -21,6 +22,11 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     }
 
     @Override
+    public void getGenre() {
+        model.getGenres();
+    }
+
+    @Override
     public void getPlayingMovies() {
         model.getPlayingMovies();
     }
@@ -33,6 +39,17 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     @Override
     public void getTopMovies() {
         model.getTopMovies();
+    }
+
+    @Override
+    public void onGetGenresSuccess(List<Genre> genreList) {
+        view.increaseProgress();
+        view.setGenres(genreList);
+    }
+
+    @Override
+    public void onGetGenresError(String errorMessage) {
+        view.increaseProgress();
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -24,7 +25,9 @@ import java.util.List;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
 import br.com.mobileti.moviecatalog.home.content.presenter.ContentPresenter;
+import br.com.mobileti.moviecatalog.home.content.view.GenreAdapter;
 import br.com.mobileti.moviecatalog.home.content.view.MovieAdapter;
+import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,14 +38,17 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.topGroup) Group topGroup;
     @BindView(R.id.ratedGroup) Group ratedGroup;
     @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.genreRecyclerView) RecyclerView genreRecyclerView;
     @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
     @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
     @BindView(R.id.ratedRecyclerView) RecyclerView ratedRecyclerView;
     private int progress;
     private ContentMvp.Presenter presenter;
+    private GenreAdapter genreAdapter;
     private MovieAdapter playingMovieAdapter;
     private MovieAdapter topMovieAdapter;
     private MovieAdapter ratedMovieAdapter;
+    private List<Genre> genreList;
     private List<Movie> playingMovieList;
     private List<Movie> topMovieList;
     private List<Movie> ratedMovieList;
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity
 
         startProgressBar();
         presenter = new ContentPresenter(this);
+        presenter.getGenre();
         presenter.getPlayingMovies();
         presenter.getTopMovies();
         presenter.getRatedMovies();
@@ -141,9 +148,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void increaseProgress() {
         progress++;
-        if(progress == 3) {
+        if(progress == 4) {
             progressBar.setVisibility(View.GONE);
+            progress = 0;
         }
+    }
+
+    @Override
+    public void setGenres(List<Genre> genreList) {
+        this.genreList.clear();
+        this.genreList.addAll(genreList);
+        genreAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -172,10 +187,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setAdapters() {
+        genreList = new ArrayList<>();
         playingMovieList = new ArrayList<>();
         ratedMovieList = new ArrayList<>();
         topMovieList = new ArrayList<>();
 
+        LinearLayoutManager genreLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager playingLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager ratedLayoutManager = new LinearLayoutManager(this,
@@ -183,10 +201,13 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager topLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
 
-
+        genreAdapter = new GenreAdapter(genreList, this);
         playingMovieAdapter = new MovieAdapter(playingMovieList, this);
         ratedMovieAdapter = new MovieAdapter(ratedMovieList, this);
         topMovieAdapter = new MovieAdapter(topMovieList, this);
+
+        genreRecyclerView.setLayoutManager(genreLayoutManager);
+        genreRecyclerView.setAdapter(genreAdapter);
 
         playingRecyclerView.setLayoutManager(playingLayoutManager);
         playingRecyclerView.setAdapter(playingMovieAdapter);

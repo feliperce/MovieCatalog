@@ -13,12 +13,14 @@ import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 public interface ContentMvp {
 
     interface Model {
+        void getGenres();
         void getPlayingMovies();
         void getRatedMovies();
         void getTopMovies();
     }
 
     interface View extends BaseView {
+        void setGenres(List<Genre> genreList);
         void setPlayingMovies(List<Movie> playingMovieList);
         void setRatedMovies(List<Movie> ratedMovieList);
         void setTopMovies(List<Movie> topMovieList);
@@ -26,12 +28,15 @@ public interface ContentMvp {
     }
 
     interface Presenter {
+        void getGenre();
         void getPlayingMovies();
         void getRatedMovies();
         void getTopMovies();
     }
 
     interface Callback {
+        void onGetGenresSuccess(List<Genre> genreList);
+        void onGetGenresError(String errorMessage);
         void onGetPlayingMovieSuccess(List<Movie> playingMovieList);
         void onGetPlayingMovieError(String errorMessage);
         void onGetRatedMovieSuccess(List<Movie> ratedMovieList);

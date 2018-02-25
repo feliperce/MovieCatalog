@@ -3,6 +3,7 @@ package br.com.mobileti.moviecatalog.home.content.model;
 import br.com.mobileti.moviecatalog.api.ApiBuilder;
 import br.com.mobileti.moviecatalog.api.ApiService;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
+import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +18,31 @@ public class ContentModel implements ContentMvp.Model {
 
     public ContentModel(ContentMvp.Callback callback) {
         this.callback = callback;
+    }
+
+    @Override
+    public void getGenres() {
+        ApiService apiService = ApiBuilder.getInstance().getApiService();
+        Call<GenreResponse> apiCall = apiService.getGenreList();
+        apiCall.enqueue(new Callback<GenreResponse>() {
+            @Override
+            public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body()!=null) {
+                        callback.onGetGenresSuccess(response.body().getGenres());
+                    } else {
+                        callback.onGetGenresError("getGenres - null body");
+                    }
+                } else {
+                    callback.onGetGenresError("getGenres - nonsuccess");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GenreResponse> call, Throwable t) {
+                callback.onGetGenresError("getGenres - "+t.getMessage());
+            }
+        });
     }
 
     @Override
