@@ -1,6 +1,7 @@
 package br.com.mobileti.moviecatalog.home.genre.model;
 
 import br.com.mobileti.moviecatalog.api.ApiBuilder;
+import br.com.mobileti.moviecatalog.application.MyApplication;
 import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
 import br.com.mobileti.moviecatalog.api.ApiService;
 import retrofit2.Call;
@@ -24,7 +25,7 @@ public class GenreModel implements GenreMvp.Model {
     @Override
     public void getAllGenres() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<GenreResponse> genreCall = apiService.getGenreList();
+        Call<GenreResponse> genreCall = apiService.getGenreList(MyApplication.COUNTRY_CODE);
         genreCall.enqueue(new Callback<GenreResponse>() {
             @Override
             public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {

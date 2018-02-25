@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import br.com.mobileti.moviecatalog.api.ApiService;
 import br.com.mobileti.moviecatalog.detail.model.MovieDetail;
 import br.com.mobileti.moviecatalog.detail.view.DetailActivity;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;

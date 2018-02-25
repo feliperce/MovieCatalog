@@ -2,6 +2,7 @@ package br.com.mobileti.moviecatalog.detail.model;
 
 import br.com.mobileti.moviecatalog.api.ApiBuilder;
 import br.com.mobileti.moviecatalog.api.ApiService;
+import br.com.mobileti.moviecatalog.application.MyApplication;
 import br.com.mobileti.moviecatalog.detail.MovieDetailMvp;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.MovieResponse;
@@ -25,7 +26,7 @@ public class MovieDetailModel implements MovieDetailMvp.Model {
     @Override
     public void getMovieDetail(int movieId) {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieDetail> apiCall = apiService.getMovieDetail(movieId);
+        Call<MovieDetail> apiCall = apiService.getMovieDetail(movieId, MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<MovieDetail>() {
             @Override
             public void onResponse(Call<MovieDetail> call, Response<MovieDetail> response) {

@@ -2,6 +2,7 @@ package br.com.mobileti.moviecatalog.home.content.model;
 
 import br.com.mobileti.moviecatalog.api.ApiBuilder;
 import br.com.mobileti.moviecatalog.api.ApiService;
+import br.com.mobileti.moviecatalog.application.MyApplication;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import retrofit2.Call;
@@ -23,7 +24,7 @@ public class ContentModel implements ContentMvp.Model {
     @Override
     public void getGenres() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<GenreResponse> apiCall = apiService.getGenreList();
+        Call<GenreResponse> apiCall = apiService.getGenreList(MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<GenreResponse>() {
             @Override
             public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
@@ -48,7 +49,7 @@ public class ContentModel implements ContentMvp.Model {
     @Override
     public void getPlayingMovies() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieResponse> apiCall = apiService.getPlayingMovieList();
+        Call<MovieResponse> apiCall = apiService.getPlayingMovieList(MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -73,7 +74,7 @@ public class ContentModel implements ContentMvp.Model {
     @Override
     public void getRatedMovies() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieResponse> apiCall = apiService.getRatedMovieList();
+        Call<MovieResponse> apiCall = apiService.getRatedMovieList(MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -98,7 +99,7 @@ public class ContentModel implements ContentMvp.Model {
     @Override
     public void getTopMovies() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieResponse> apiCall = apiService.getTopMovieList();
+        Call<MovieResponse> apiCall = apiService.getTopMovieList(MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -123,7 +124,7 @@ public class ContentModel implements ContentMvp.Model {
     @Override
     public void getMovieByGenre(int genreId) {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieResponse> apiCall = apiService.getMovieByGenre(genreId);
+        Call<MovieResponse> apiCall = apiService.getMovieByGenre(genreId, MyApplication.COUNTRY_CODE);
         apiCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
