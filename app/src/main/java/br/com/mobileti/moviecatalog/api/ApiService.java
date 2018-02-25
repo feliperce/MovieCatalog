@@ -1,9 +1,6 @@
 package br.com.mobileti.moviecatalog.api;
 
-import java.util.Locale;
-
 import br.com.mobileti.moviecatalog.detail.model.MovieDetail;
-import br.com.mobileti.moviecatalog.detail.model.MovieDetailResponse;
 import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import br.com.mobileti.moviecatalog.home.content.model.MovieResponse;
 import retrofit2.Call;
