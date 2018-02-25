@@ -1,6 +1,9 @@
 package br.com.mobileti.moviecatalog;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -28,11 +31,14 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContentMvp.View {
 
-    @BindView(R.id.contentLayout) LinearLayout contentLayout;
+    @BindView(R.id.playingGroup) Group playingGroup;
+    @BindView(R.id.topGroup) Group topGroup;
+    @BindView(R.id.ratedGroup) Group ratedGroup;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
     @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
     @BindView(R.id.ratedRecyclerView) RecyclerView ratedRecyclerView;
+    private int progress;
     private ContentMvp.Presenter presenter;
     private MovieAdapter playingMovieAdapter;
     private MovieAdapter topMovieAdapter;
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity
 
         setAdapters();
 
+        startProgressBar();
         presenter = new ContentPresenter(this);
         presenter.getPlayingMovies();
         presenter.getTopMovies();
@@ -128,15 +135,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void startProgressBar() {
         progressBar.setVisibility(View.VISIBLE);
+        progress = 0;
     }
 
     @Override
-    public void finishProgressBar() {
-        progressBar.setVisibility(View.GONE);
+    public void increaseProgress() {
+        progress++;
+        if(progress == 3) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void setPlayingMovies(List<Movie> playingMovieList) {
+        playingGroup.setVisibility(View.VISIBLE);
         this.playingMovieList.clear();
         this.playingMovieList.addAll(playingMovieList);
         playingMovieAdapter.notifyDataSetChanged();
@@ -144,6 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setRatedMovies(List<Movie> ratedMovieList) {
+        ratedGroup.setVisibility(View.VISIBLE);
         this.ratedMovieList.clear();
         this.ratedMovieList.addAll(ratedMovieList);
         ratedMovieAdapter.notifyDataSetChanged();
@@ -151,6 +164,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setTopMovies(List<Movie> topMovieList) {
+        topGroup.setVisibility(View.VISIBLE);
         this.topMovieList.clear();
         this.topMovieList.addAll(topMovieList);
         topMovieAdapter.notifyDataSetChanged();

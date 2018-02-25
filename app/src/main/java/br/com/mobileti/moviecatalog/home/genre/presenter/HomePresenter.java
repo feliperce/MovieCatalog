@@ -28,12 +28,12 @@ public class HomePresenter implements GenreMvp.Presenter, GenreMvp.Callback {
 
     @Override
     public void onGetAllGenresSuccess(List<Genre> genreList) {
-        view.finishProgressBar();
+        view.increaseProgress();
         view.setGenres(genreList);
     }
 
     @Override
     public void onGetAllGenresError(String errorMessage) {
-        view.finishProgressBar();
+        view.increaseProgress();
     }
 }

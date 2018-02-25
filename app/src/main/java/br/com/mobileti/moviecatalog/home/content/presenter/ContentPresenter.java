@@ -37,34 +37,34 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
 
     @Override
     public void onGetPlayingMovieSuccess(List<Movie> playingMovieList) {
-        view.finishProgressBar();
+        view.increaseProgress();
         view.setPlayingMovies(playingMovieList);
     }
 
     @Override
     public void onGetPlayingMovieError(String errorMessage) {
-        view.finishProgressBar();
+        view.increaseProgress();
     }
 
     @Override
     public void onGetRatedMovieSuccess(List<Movie> ratedMovieList) {
-        view.finishProgressBar();
+        view.increaseProgress();
         view.setRatedMovies(ratedMovieList);
     }
 
     @Override
     public void onGetRatedMovieError(String errorMessage) {
-
+        view.increaseProgress();
     }
 
     @Override
     public void onGetTopMovieSuccess(List<Movie> topMovieList) {
-        view.finishProgressBar();
+        view.increaseProgress();
         view.setTopMovies(topMovieList);
     }
 
     @Override
     public void onGetTopMovieError(String errorMessage) {
-
+        view.increaseProgress();
     }
 }

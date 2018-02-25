@@ -6,5 +6,5 @@ package br.com.mobileti.moviecatalog;
 
 public interface BaseView {
     void startProgressBar();
-    void finishProgressBar();
+    void increaseProgress();
 }
