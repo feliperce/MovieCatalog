@@ -41,6 +41,7 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     @Override
     public void onGetPlayingMovieSuccess(List<Movie> playingMovieList) {
         view.finishProgressBar();
+        view.setPlayingMovies(playingMovieList);
     }
 
     @Override

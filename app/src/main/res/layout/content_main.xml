@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/content_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.com.mobileti.moviecatalog.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+    android:background="@color/content_bg">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -40,6 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Acabaram de chegar!"
+                android:layout_marginTop="@dimen/content_margin"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentTitle" />
 
             <TextView
@@ -47,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lançamentos do cinema"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentSubTitle" />
 
             <android.support.v7.widget.RecyclerView
@@ -62,6 +65,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Top filmes"
+                android:layout_marginTop="@dimen/content_margin"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentTitle" />
 
             <TextView
@@ -69,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Os mais populares"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentSubTitle" />
 
             <android.support.v7.widget.RecyclerView
@@ -84,6 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Novos"
+                android:layout_marginTop="@dimen/content_margin"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentTitle" />
 
             <TextView
@@ -91,6 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Os mais recentes"
+                android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentSubTitle" />
 
             <android.support.v7.widget.RecyclerView

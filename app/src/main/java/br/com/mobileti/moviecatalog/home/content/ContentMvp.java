@@ -22,6 +22,7 @@ public interface ContentMvp {
         void setPlayingMovies(List<Movie> playingMovieList);
         void setPopularMovies(List<Movie> popularMovieList);
         void setTopMovies(List<Movie> topMovieList);
+        void setAdapters();
     }
 
     interface Presenter {

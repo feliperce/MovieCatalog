@@ -1,6 +1,7 @@
 package br.com.mobileti.moviecatalog;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,11 +16,13 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
 import br.com.mobileti.moviecatalog.home.content.presenter.ContentPresenter;
+import br.com.mobileti.moviecatalog.home.content.view.MovieAdapter;
 import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
 import br.com.mobileti.moviecatalog.home.genre.model.Genre;
 import br.com.mobileti.moviecatalog.home.genre.presenter.HomePresenter;
@@ -29,17 +32,18 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContentMvp.View {
 
-    @BindView(R.id.contentLayout)
-    LinearLayout contentLayout;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-    @BindView(R.id.playingRecyclerView)
-    RecyclerView playingRecyclerView;
-    @BindView(R.id.topRecyclerView)
-    RecyclerView topRecyclerView;
-    @BindView(R.id.latestRecyclerView)
-    RecyclerView latestRecyclerView;
+    @BindView(R.id.contentLayout) LinearLayout contentLayout;
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
+    @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
+    @BindView(R.id.latestRecyclerView) RecyclerView latestRecyclerView;
     private ContentMvp.Presenter presenter;
+    private MovieAdapter playingMovieAdapter;
+    private MovieAdapter topMovieAdapter;
+    private MovieAdapter popularMovieAdapter;
+    private List<Movie> playingMovieList;
+    private List<Movie> topMovieList;
+    private List<Movie> popularMovieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setAdapters();
 
         presenter = new ContentPresenter(this);
         presenter.getPlayingMovies();
@@ -133,7 +139,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setPlayingMovies(List<Movie> playingMovieList) {
-
+        this.playingMovieList.clear();
+        this.playingMovieList.addAll(playingMovieList);
+        playingMovieAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -144,5 +152,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void setTopMovies(List<Movie> topMovieList) {
 
+    }
+
+    @Override
+    public void setAdapters() {
+        playingMovieList = new ArrayList<>();
+        popularMovieList = new ArrayList<>();
+        topMovieList = new ArrayList<>();
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+
+
+        playingMovieAdapter = new MovieAdapter(playingMovieList, this);
+        popularMovieAdapter = new MovieAdapter(popularMovieList, this);
+        topMovieAdapter = new MovieAdapter(topMovieList, this);
+
+        playingRecyclerView.setLayoutManager(layoutManager);
+        playingRecyclerView.setAdapter(playingMovieAdapter);
     }
 }
