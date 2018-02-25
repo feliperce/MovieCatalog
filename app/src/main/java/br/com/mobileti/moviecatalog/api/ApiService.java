@@ -4,12 +4,16 @@ import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import br.com.mobileti.moviecatalog.home.content.model.MovieResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by felipe on 24/02/18.
  */
 
 public interface ApiService {
+
+    @GET("genre/{genreId}/movies?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&include_adult=false&sort_by=created_at.asc")
+    Call<MovieResponse> getMovieByGenre(@Path("genreId") int genreId);
 
     @GET("genre/movie/list?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US")
     Call<GenreResponse> getGenreList();

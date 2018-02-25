@@ -42,6 +42,26 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     }
 
     @Override
+    public void closeDrawer() {
+        view.closeDrawer();
+    }
+
+    @Override
+    public void setMoviesByGenre(int genreId) {
+        model.getMovieByGenre(genreId);
+    }
+
+    @Override
+    public void onGetMoviesByGenreSuccess(List<Movie> movieList) {
+        view.setMoviesByGenre(movieList);
+    }
+
+    @Override
+    public void onGetMoviesByGenreError(String errorMessage) {
+
+    }
+
+    @Override
     public void onGetGenresSuccess(List<Genre> genreList) {
         view.increaseProgress();
         view.setGenres(genreList);

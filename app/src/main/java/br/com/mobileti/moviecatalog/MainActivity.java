@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.topGroup) Group topGroup;
     @BindView(R.id.ratedGroup) Group ratedGroup;
     @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.nav_view) NavigationView navigationView;
     @BindView(R.id.genreRecyclerView) RecyclerView genreRecyclerView;
     @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
     @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -72,10 +73,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setAdapters();
-
-        startProgressBar();
         presenter = new ContentPresenter(this);
+        
+        setAdapters();
+        startProgressBar();
+
         presenter.getGenre();
         presenter.getPlayingMovies();
         presenter.getTopMovies();
@@ -134,7 +136,6 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -152,6 +153,13 @@ public class MainActivity extends AppCompatActivity
             progressBar.setVisibility(View.GONE);
             progress = 0;
         }
+    }
+
+    @Override
+    public void setMoviesByGenre(List<Movie> movieList) {
+        playingGroup.setVisibility(View.GONE);
+        topGroup.setVisibility(View.GONE);
+        ratedGroup.setVisibility(View.GONE);
     }
 
     @Override
@@ -201,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         LinearLayoutManager topLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
 
-        genreAdapter = new GenreAdapter(genreList, this);
+        genreAdapter = new GenreAdapter(genreList, this, presenter);
         playingMovieAdapter = new MovieAdapter(playingMovieList, this);
         ratedMovieAdapter = new MovieAdapter(ratedMovieList, this);
         topMovieAdapter = new MovieAdapter(topMovieList, this);
@@ -219,4 +227,10 @@ public class MainActivity extends AppCompatActivity
         topRecyclerView.setAdapter(topMovieAdapter);
 
     }
+
+    @Override
+    public void closeDrawer() {
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
 }

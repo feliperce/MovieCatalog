@@ -119,4 +119,29 @@ public class ContentModel implements ContentMvp.Model {
             }
         });
     }
+
+    @Override
+    public void getMovieByGenre(int genreId) {
+        ApiService apiService = ApiBuilder.getInstance().getApiService();
+        Call<MovieResponse> apiCall = apiService.getMovieByGenre(genreId);
+        apiCall.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body()!=null) {
+                        callback.onGetMoviesByGenreSuccess(response.body().getMovieList());
+                    } else {
+                        callback.onGetMoviesByGenreError("getMovieByGenre - null body");
+                    }
+                } else {
+                    callback.onGetMoviesByGenreError("getMovieByGenre - nonsuccess");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                callback.onGetMoviesByGenreError("getMovieByGenre - "+t.getMessage());
+            }
+        });
+    }
 }
