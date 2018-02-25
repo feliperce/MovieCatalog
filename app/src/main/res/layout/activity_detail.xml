@@ -16,12 +16,6 @@
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ProgressBar
-                android:id="@+id/imageProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
             <ImageView
                 android:id="@+id/movieImageView"
                 android:layout_width="match_parent"
@@ -30,15 +24,19 @@
                 tools:src="@drawable/side_nav_bar"
                 app:layout_collapseMode="parallax"/>
 
+            <ProgressBar
+                android:id="@+id/imageProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
             <android.support.v7.widget.Toolbar
                 app:theme="@style/AppToolbar"
-                android:textColor="?android:attr/textColorPrimary"
-                app:titleTextColor="@android:color/white"
-                app:subtitleTextColor="@android:color/white"
+                android:background="@android:color/transparent"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                app:layout_collapseMode="pin" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -58,8 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/content_margin">
-
-
 
             <TextView
                 android:id="@+id/movieRateTextView"
@@ -110,7 +106,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Movie overview"
-                android:layout_marginTop="1888dp"
+                android:layout_marginTop="18dp"
                 android:textColor="@color/rate_text_color"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movieStatusTextView"

@@ -85,6 +85,7 @@ public class DetailActivity extends BaseAtivity implements MovieDetailMvp.View {
         }).into(movieImageView);
 
         toolbar.setTitle(movieDetail.getTitle());
+        movieReleaseTextView.setText(movieDetail.getReleaseDate());
         movieRateTextView.setText(Float.toString(movieDetail.getVoteAverage()));
         movieStatusTextView.setText(movieDetail.getStatus());
         movieOverviewTextView.setText(movieDetail.getOverview());

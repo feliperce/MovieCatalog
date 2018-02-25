@@ -176,7 +176,7 @@ public class MainActivity extends BaseAtivity implements ContentMvp.View {
         ratedMovieAdapter = new MovieAdapter(ratedMovieList, this, presenter);
         topMovieAdapter = new MovieAdapter(topMovieList, this, presenter);
         movieByGenreAdapter = new MovieAdapter(movieByGenreList,
-                this, R.layout.movie_by_genre_item);
+                this, presenter, R.layout.movie_by_genre_item);
 
         genreRecyclerView.setLayoutManager(genreLayoutManager);
         genreRecyclerView.setAdapter(genreAdapter);

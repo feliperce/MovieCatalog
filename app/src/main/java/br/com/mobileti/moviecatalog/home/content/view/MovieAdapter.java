@@ -36,10 +36,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         this.presenter = presenter;
     }
 
-    public MovieAdapter(List<Movie> movieList, Context context, int itemLayout) {
+    public MovieAdapter(List<Movie> movieList, Context context, ContentMvp.Presenter presenter, int itemLayout) {
         this.movieList = movieList;
         this.context = context;
         this.itemLayout = itemLayout;
+        this.presenter = presenter;
     }
 
     @Override
