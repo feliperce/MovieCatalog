@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="Acabaram de chegar!"
+            android:text="@string/cine_movie_title"
             app:layout_constraintBottom_toTopOf="@+id/playingSubTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Lançamentos do cinema"
+            android:text="@string/cine_movie_subtitle"
             app:layout_constraintBottom_toTopOf="@+id/playingRecyclerView"
             app:layout_constraintStart_toStartOf="@+id/playingTitle"
             app:layout_constraintTop_toBottomOf="@+id/playingTitle" />
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Top filmes"
+            android:text="@string/top_movie_title"
             app:layout_constraintBottom_toTopOf="@+id/topSubTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/playingRecyclerView" />
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Os mais populares"
+            android:text="@string/top_movie_subtitle"
             app:layout_constraintBottom_toTopOf="@+id/topRecyclerView"
             app:layout_constraintStart_toStartOf="@+id/topTitle"
             app:layout_constraintTop_toBottomOf="@+id/topTitle" />
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:text="Bem avaliados"
+            android:text="@string/rated_movie_title"
             app:layout_constraintBottom_toTopOf="@+id/ratedSubTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topRecyclerView" />
@@ -140,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Os mais votados"
+            android:text="@string/rated_movie_subtitle"
             app:layout_constraintBottom_toTopOf="@+id/ratedRecyclerView"
             app:layout_constraintStart_toStartOf="@+id/ratedTitle"
             app:layout_constraintTop_toBottomOf="@+id/ratedTitle" />

@@ -34,7 +34,7 @@
         android:id="@+id/emptyMovieTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nenhum filme encontrado"
+        android:text="@string/empty_movie"
         android:visibility="gone"
         android:layout_gravity="center"/>
 

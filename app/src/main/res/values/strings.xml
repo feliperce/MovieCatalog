@@ -5,4 +5,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="empty_movie">Nenhum filme encontrado</string>
+    <string name="cine_movie_title">Acabaram de chegar!</string>
+    <string name="cine_movie_subtitle">Lançamentos do cinema</string>
+    <string name="top_movie_title">Top filmes</string>
+    <string name="top_movie_subtitle">Os mais populares</string>
+    <string name="rated_movie_title">Bem avaliados</string>
+    <string name="rated_movie_subtitle">Os mais votados</string>
 </resources>
