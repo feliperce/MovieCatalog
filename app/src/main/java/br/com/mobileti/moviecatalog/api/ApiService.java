@@ -17,10 +17,10 @@ public interface ApiService {
     @GET("movie/now_playing?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&page=1")
     Call<MovieResponse> getPlayingMovieList();
 
-    @GET("movie/popular?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&page=1")
-    Call<MovieResponse> getPopularMovieList();
-
     @GET("movie/top_rated?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&page=1")
+    Call<MovieResponse> getRatedMovieList();
+
+    @GET("movie/popular?api_key=f791f0b25a9715e85a133c21fb92c33b&language=en-US&page=1")
     Call<MovieResponse> getTopMovieList();
 
 }

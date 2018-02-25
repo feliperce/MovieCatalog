@@ -14,28 +14,28 @@ public interface ContentMvp {
 
     interface Model {
         void getPlayingMovies();
-        void getPopularMovies();
+        void getRatedMovies();
         void getTopMovies();
     }
 
     interface View extends BaseView {
         void setPlayingMovies(List<Movie> playingMovieList);
-        void setPopularMovies(List<Movie> popularMovieList);
+        void setRatedMovies(List<Movie> ratedMovieList);
         void setTopMovies(List<Movie> topMovieList);
         void setAdapters();
     }
 
     interface Presenter {
         void getPlayingMovies();
-        void getPopularMovies();
+        void getRatedMovies();
         void getTopMovies();
     }
 
     interface Callback {
         void onGetPlayingMovieSuccess(List<Movie> playingMovieList);
         void onGetPlayingMovieError(String errorMessage);
-        void onGetPopularMovieSuccess(List<Movie> popularMovieList);
-        void onGetPopularMovieError(String errorMessage);
+        void onGetRatedMovieSuccess(List<Movie> ratedMovieList);
+        void onGetRatedMovieError(String errorMessage);
         void onGetTopMovieSuccess(List<Movie> topMovieList);
         void onGetTopMovieError(String errorMessage);
     }

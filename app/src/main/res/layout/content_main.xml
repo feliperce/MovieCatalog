@@ -84,26 +84,26 @@
                 tools:listitem="@layout/movie_item"
                 style="@style/HomeMoviesRecyclerView" />
 
-            <!-- Latest Movies -->
+            <!-- Top Rated Movies -->
             <TextView
-                android:id="@+id/latestTitle"
+                android:id="@+id/ratedTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Novos"
+                android:text="Bem avaliados"
                 android:layout_marginTop="@dimen/content_margin"
                 android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentTitle" />
 
             <TextView
-                android:id="@+id/latestSubTitle"
+                android:id="@+id/ratedSubTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Os mais recentes"
+                android:text="Os mais votados"
                 android:layout_marginLeft="@dimen/content_margin"
                 style="@style/HomeContentSubTitle" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/latestRecyclerView"
+                android:id="@+id/ratedRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:listitem="@layout/movie_item"

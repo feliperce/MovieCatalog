@@ -3,12 +3,9 @@ package br.com.mobileti.moviecatalog.home.content.model;
 import br.com.mobileti.moviecatalog.api.ApiBuilder;
 import br.com.mobileti.moviecatalog.api.ApiService;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
-import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
-import br.com.mobileti.moviecatalog.home.genre.model.GenreResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by felipe on 24/02/18.
@@ -22,36 +19,11 @@ public class ContentModel implements ContentMvp.Model {
         this.callback = callback;
     }
 
-   /* @Override
-    public void getAllGenres() {
-        ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<GenreResponse> genreCall = apiService.getGenreList();
-        genreCall.enqueue(new Callback<GenreResponse>() {
-            @Override
-            public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
-                if(response.isSuccessful()) {
-                    if(response.body()!=null) {
-                        callback.onGetAllGenresSuccess(response.body().getGenres());
-                    } else {
-                        callback.onGetAllGenresError("getGenre - null body");
-                    }
-                } else {
-                    callback.onGetAllGenresError("getGenre - nonsuccess");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GenreResponse> call, Throwable t) {
-                callback.onGetAllGenresError("getGenre - "+t.getMessage());
-            }
-        });
-    }*/
-
     @Override
     public void getPlayingMovies() {
         ApiService apiService = ApiBuilder.getInstance().getApiService();
-        Call<MovieResponse> genreCall = apiService.getPlayingMovieList();
-        genreCall.enqueue(new Callback<MovieResponse>() {
+        Call<MovieResponse> apiCall = apiService.getPlayingMovieList();
+        apiCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if(response.isSuccessful()) {
@@ -73,12 +45,52 @@ public class ContentModel implements ContentMvp.Model {
     }
 
     @Override
-    public void getPopularMovies() {
+    public void getRatedMovies() {
+        ApiService apiService = ApiBuilder.getInstance().getApiService();
+        Call<MovieResponse> apiCall = apiService.getRatedMovieList();
+        apiCall.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body()!=null) {
+                        callback.onGetRatedMovieSuccess(response.body().getMovieList());
+                    } else {
+                        callback.onGetRatedMovieError("getRatedMovieList - null body");
+                    }
+                } else {
+                    callback.onGetRatedMovieError("getRatedMovieList - nonsuccess");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                callback.onGetRatedMovieError("getRatedMovieList - "+t.getMessage());
+            }
+        });
     }
 
     @Override
     public void getTopMovies() {
+        ApiService apiService = ApiBuilder.getInstance().getApiService();
+        Call<MovieResponse> apiCall = apiService.getTopMovieList();
+        apiCall.enqueue(new Callback<MovieResponse>() {
+            @Override
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                if(response.isSuccessful()) {
+                    if(response.body()!=null) {
+                        callback.onGetTopMovieSuccess(response.body().getMovieList());
+                    } else {
+                        callback.onGetTopMovieError("getTopMovieList - null body");
+                    }
+                } else {
+                    callback.onGetTopMovieError("getTopMovieList - nonsuccess");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
+                callback.onGetTopMovieError("getTopMovieList - "+t.getMessage());
+            }
+        });
     }
 }

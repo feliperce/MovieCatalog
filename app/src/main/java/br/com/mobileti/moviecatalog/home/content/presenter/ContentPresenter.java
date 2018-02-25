@@ -5,9 +5,6 @@ import java.util.List;
 import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.ContentModel;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
-import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
-import br.com.mobileti.moviecatalog.home.genre.model.Genre;
-import br.com.mobileti.moviecatalog.home.genre.model.GenreModel;
 
 /**
  * Created by felipe on 24/02/18.
@@ -29,13 +26,13 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     }
 
     @Override
-    public void getPopularMovies() {
-
+    public void getRatedMovies() {
+        model.getRatedMovies();
     }
 
     @Override
     public void getTopMovies() {
-
+        model.getTopMovies();
     }
 
     @Override
@@ -50,18 +47,20 @@ public class ContentPresenter implements ContentMvp.Presenter, ContentMvp.Callba
     }
 
     @Override
-    public void onGetPopularMovieSuccess(List<Movie> popularMovieList) {
-
+    public void onGetRatedMovieSuccess(List<Movie> ratedMovieList) {
+        view.finishProgressBar();
+        view.setRatedMovies(ratedMovieList);
     }
 
     @Override
-    public void onGetPopularMovieError(String errorMessage) {
+    public void onGetRatedMovieError(String errorMessage) {
 
     }
 
     @Override
     public void onGetTopMovieSuccess(List<Movie> topMovieList) {
-
+        view.finishProgressBar();
+        view.setTopMovies(topMovieList);
     }
 
     @Override

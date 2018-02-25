@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +22,6 @@ import br.com.mobileti.moviecatalog.home.content.ContentMvp;
 import br.com.mobileti.moviecatalog.home.content.model.Movie;
 import br.com.mobileti.moviecatalog.home.content.presenter.ContentPresenter;
 import br.com.mobileti.moviecatalog.home.content.view.MovieAdapter;
-import br.com.mobileti.moviecatalog.home.genre.GenreMvp;
-import br.com.mobileti.moviecatalog.home.genre.model.Genre;
-import br.com.mobileti.moviecatalog.home.genre.presenter.HomePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,14 +32,14 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.playingRecyclerView) RecyclerView playingRecyclerView;
     @BindView(R.id.topRecyclerView) RecyclerView topRecyclerView;
-    @BindView(R.id.latestRecyclerView) RecyclerView latestRecyclerView;
+    @BindView(R.id.ratedRecyclerView) RecyclerView ratedRecyclerView;
     private ContentMvp.Presenter presenter;
     private MovieAdapter playingMovieAdapter;
     private MovieAdapter topMovieAdapter;
-    private MovieAdapter popularMovieAdapter;
+    private MovieAdapter ratedMovieAdapter;
     private List<Movie> playingMovieList;
     private List<Movie> topMovieList;
-    private List<Movie> popularMovieList;
+    private List<Movie> ratedMovieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +64,8 @@ public class MainActivity extends AppCompatActivity
 
         presenter = new ContentPresenter(this);
         presenter.getPlayingMovies();
+        presenter.getTopMovies();
+        presenter.getRatedMovies();
     }
 
     @Override
@@ -145,30 +143,45 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void setPopularMovies(List<Movie> popularMovieList) {
-
+    public void setRatedMovies(List<Movie> ratedMovieList) {
+        this.ratedMovieList.clear();
+        this.ratedMovieList.addAll(ratedMovieList);
+        ratedMovieAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setTopMovies(List<Movie> topMovieList) {
-
+        this.topMovieList.clear();
+        this.topMovieList.addAll(topMovieList);
+        topMovieAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setAdapters() {
         playingMovieList = new ArrayList<>();
-        popularMovieList = new ArrayList<>();
+        ratedMovieList = new ArrayList<>();
         topMovieList = new ArrayList<>();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,
+        LinearLayoutManager playingLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager ratedLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager topLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
 
 
         playingMovieAdapter = new MovieAdapter(playingMovieList, this);
-        popularMovieAdapter = new MovieAdapter(popularMovieList, this);
+        ratedMovieAdapter = new MovieAdapter(ratedMovieList, this);
         topMovieAdapter = new MovieAdapter(topMovieList, this);
 
-        playingRecyclerView.setLayoutManager(layoutManager);
+        playingRecyclerView.setLayoutManager(playingLayoutManager);
         playingRecyclerView.setAdapter(playingMovieAdapter);
+
+        ratedRecyclerView.setLayoutManager(ratedLayoutManager);
+        ratedRecyclerView.setAdapter(ratedMovieAdapter);
+
+        topRecyclerView.setLayoutManager(topLayoutManager);
+        topRecyclerView.setAdapter(topMovieAdapter);
+
     }
 }
