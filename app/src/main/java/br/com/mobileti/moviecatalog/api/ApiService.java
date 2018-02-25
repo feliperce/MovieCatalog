@@ -14,8 +14,6 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    public static String CountryCode = "";
-
     @GET("genre/{genreId}/movies?api_key=f791f0b25a9715e85a133c21fb92c33b&language=&include_adult=false&sort_by=created_at.asc")
     Call<MovieResponse> getMovieByGenre(@Path("genreId") int genreId, @Query("language") String language);
 
